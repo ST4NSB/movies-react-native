@@ -1,39 +1,51 @@
 import * as React from 'react';
 import * as SecureStore from 'expo-secure-store';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, Button, TextInput, StyleSheet, Text, Alert, TouchableOpacity, View } from 'react-native';
 import { useState, useEffect } from 'react';
+import { authenticatePostAsync } from '../utils/requests';
 
 export default function Login({ navigation }) {
-    const [token, setToken] = useState(null);
-
-    useEffect(() => {
-        async function getToken() {
-            const result = await SecureStore.getItemAsync('tokenKey');
-            if (result) {
-                setToken(result);
-            }
-        }
-    
-        getToken();
-    }, [])
+    const [userName, setuserName] = useState('');
+    const [password, setPassword] = useState('');
 
     async function saveToken(value) {
         await SecureStore.setItemAsync('tokenKey', value);
     }
+
+    useEffect(() => {
+        if (navigation.getParam('invalidToken')) {
+            Alert.alert('Session expired!', navigation.getParam('message'));
+        }
+    }, [navigation])
   
     return (
-        <View>
-            <Text style="white">{token ?? "nimic de test"}</Text>
+        <SafeAreaView>
+            <Text>Username:</Text>
+            <TextInput
+                secureTextEntry={false}
+                style={styles.input}
+                onChangeText={setuserName}
+                value={userName}
+            />
+            <Text>Password:</Text>
+            <TextInput
+                secureTextEntry={true}
+                style={styles.input}
+                onChangeText={setPassword}
+                value={password}
+            />
             <Button onPress={async () => {
-                saveToken("test token pus");
+                const result = await authenticatePostAsync(userName, password);
+                if (!result.statusOk) {
+                    Alert.alert('Error - Authentication', result.message);
+                }
+                else {
+                    saveToken(result.token);
+                    navigation.navigate('MoviesMain');
+                }
             }} 
             title="Sign In" />
-
-            <Button onPress={() => {
-                navigation.navigate('MoviesMain')
-            }} 
-            title="More"/>
-        </View>
+        </SafeAreaView>
   );
 }
 
@@ -43,6 +55,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
   },
 });
 
