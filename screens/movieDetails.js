@@ -12,7 +12,6 @@ import {
 import { getMovieDetailsAsync } from "../utils/requests";
 import MovieItemBox from "../components/movieItemBox";
 import globalStyles from "../styles/globalStyles";
-import { FlatList } from "react-native-gesture-handler";
 
 const localStyle = StyleSheet.create({
   layout: {

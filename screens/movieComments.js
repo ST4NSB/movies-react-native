@@ -1,8 +1,48 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Alert, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Alert,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { getCommentsAsync, submitCommentPostAsync } from "../utils/requests";
+import globalStyles from "../styles/globalStyles";
+
+const localStyle = StyleSheet.create({
+  layout: {
+    width: "100%",
+  },
+  messagesBox: {
+    width: "90%",
+    marginHorizontal: "5%",
+    backgroundColor: "#ccc",
+    borderRadius: 15,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+  },
+  input: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: 90,
+    padding: 20,
+    fontWeight: "bold",
+    backgroundColor: "#ddd",
+    color: "#333",
+    borderWidth: 1,
+    borderColor: "#aaa",
+  },
+  button: {
+    width: 80,
+    position: "absolute",
+    bottom: "3%",
+    right: "3%",
+  },
+});
 
 export default function MovieComments({ navigation }) {
   const [comments, setComments] = useState([]);
@@ -25,23 +65,39 @@ export default function MovieComments({ navigation }) {
   }, []);
 
   return (
-    <View style={styles.container}>
-      {comments.map((comm) => (
-        <Text key={comm.id}>{comm.message}</Text>
-      ))}
+    <View style={globalStyles.screenContainer}>
+      <View style={localStyle.layout}>
+        <FlatList
+          scrollIndicatorInsets={{ right: 1 }}
+          data={comments}
+          removeClippedSubviews={false}
+          renderItem={({ item, index }) => (
+            <View
+              key={item.id}
+              style={[
+                localStyle.messagesBox,
+                index === 0 ? { marginVertical: 20 } : { marginBottom: 20 },
+              ]}
+            >
+              <Text style={globalStyles.label}>{item.message}</Text>
+            </View>
+          )}
+        />
+      </View>
 
       <TextInput
-        style={styles.input}
-        multiline={true}
-        numberOfLines={2}
+        style={localStyle.input}
         onChangeText={setMessage}
         value={message}
+        placeholder={"Type a message"}
       />
 
-      <Button
+      <TouchableOpacity
+        style={[globalStyles.button, localStyle.button]}
         onPress={async () => {
           if (message) {
-            const result = await submitCommentPostAsync(
+            setMessage("");
+            const response = await submitCommentPostAsync(
               navigation.getParam("id"),
               message
             );
@@ -52,7 +108,6 @@ export default function MovieComments({ navigation }) {
             } else {
               await getMovieCommentsFromRequest();
             }
-            setMessage("");
           } else {
             Alert.alert(
               "Error - sending message",
@@ -60,23 +115,9 @@ export default function MovieComments({ navigation }) {
             );
           }
         }}
-        title="Send"
-      />
+      >
+        <Text style={globalStyles.buttonText}>Send</Text>
+      </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-  },
-  input: {
-    height: 40,
-    width: 300,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-});

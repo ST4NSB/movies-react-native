@@ -34,6 +34,7 @@ export default function MoviesMain({ navigation }) {
   return (
     <View style={globalStyles.screenContainer}>
       <FlatList
+        scrollIndicatorInsets={{ right: 1 }}
         data={movies}
         renderItem={({ item, index }) => (
           <TouchableOpacity
