@@ -36,20 +36,19 @@ export default function MoviesMain({ navigation }) {
       <FlatList
         data={movies}
         renderItem={({ item, index }) => (
-          <View
+          <TouchableOpacity
+            key={item.id}
+            onPress={() => navigation.navigate("MovieDetails", { id: item.id })}
             style={index === 0 ? { marginVertical: 20 } : { marginBottom: 20 }}
           >
             <MovieItemBox
-              key={item.id}
-              navigation={navigation}
-              id={item.id}
               title={item.title}
               imageUrl={item.posterUrl}
               year={item.year}
               duration={item.duration}
               rating={item.rating}
             />
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>

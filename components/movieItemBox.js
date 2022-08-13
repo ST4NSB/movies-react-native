@@ -1,6 +1,6 @@
 import * as React from "react";
 import globalStyles from "../styles/globalStyles";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 
 const localStyle = StyleSheet.create({
   container: {
@@ -8,7 +8,6 @@ const localStyle = StyleSheet.create({
     padding: 20,
   },
   layout: {
-    flex: 1,
     flexDirection: "row",
   },
   firstColumn: {
@@ -21,31 +20,25 @@ const localStyle = StyleSheet.create({
     width: "100%",
     flex: 1,
   },
-  templateLabel: {
-    fontWeight: "bold",
-    color: "#999",
+  textSpace: {
+    paddingBottom: 9,
   },
   image: {
     width: 75,
-    height: 120,
+    height: 110,
   },
 });
 
 export default function MovieItemBox({
-  id,
   title,
   imageUrl,
   year,
   duration,
   rating,
-  navigation,
 }) {
   return (
     <View style={localStyle.container}>
-      <TouchableOpacity
-        style={localStyle.layout}
-        onPress={() => navigation.navigate("MovieDetails", { id })}
-      >
+      <View style={localStyle.layout}>
         <View style={localStyle.firstColumn}>
           <Image
             style={localStyle.image}
@@ -55,18 +48,32 @@ export default function MovieItemBox({
           />
         </View>
         <View style={localStyle.secondColumn}>
-          <Text style={localStyle.templateLabel}>Title</Text>
-          <Text style={localStyle.templateLabel}>Year</Text>
-          <Text style={localStyle.templateLabel}>Duration</Text>
-          <Text style={localStyle.templateLabel}>Rating</Text>
+          <Text style={[globalStyles.templateLabel, localStyle.textSpace]}>
+            Title
+          </Text>
+          <Text style={[globalStyles.templateLabel, localStyle.textSpace]}>
+            Year
+          </Text>
+          <Text style={[globalStyles.templateLabel, localStyle.textSpace]}>
+            Duration
+          </Text>
+          <Text style={[globalStyles.templateLabel, localStyle.textSpace]}>
+            Rating
+          </Text>
         </View>
         <View style={localStyle.lastColumn}>
-          <Text style={globalStyles.label}>{title}</Text>
-          <Text style={globalStyles.label}>{year}</Text>
-          <Text style={globalStyles.label}>{duration}</Text>
-          <Text style={globalStyles.label}>{rating}</Text>
+          <Text style={[globalStyles.label, localStyle.textSpace]}>
+            {title}
+          </Text>
+          <Text style={[globalStyles.label, localStyle.textSpace]}>{year}</Text>
+          <Text style={[globalStyles.label, localStyle.textSpace]}>
+            {duration}
+          </Text>
+          <Text style={[globalStyles.label, localStyle.textSpace]}>
+            {rating}
+          </Text>
         </View>
-      </TouchableOpacity>
+      </View>
     </View>
   );
 }

@@ -5,6 +5,10 @@ const globalStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#eee",
   },
+  templateLabel: {
+    fontWeight: "bold",
+    color: "#aaa",
+  },
   label: {
     fontWeight: "bold",
     color: "#333",

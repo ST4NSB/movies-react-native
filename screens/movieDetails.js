@@ -1,7 +1,27 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, Button, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Button,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import { getMovieDetailsAsync } from "../utils/requests";
+import MovieItemBox from "../components/movieItemBox";
+import globalStyles from "../styles/globalStyles";
+import { FlatList } from "react-native-gesture-handler";
+
+const localStyle = StyleSheet.create({
+  layout: {
+    marginHorizontal: 25,
+  },
+  spaceBox: {
+    marginVertical: 20,
+  },
+});
 
 export default function MovieDetails({ navigation }) {
   const [movieDetails, setMovieDetails] = useState({});
@@ -24,42 +44,39 @@ export default function MovieDetails({ navigation }) {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Image
-        style={{ width: 100, height: 100 }}
-        source={{
-          uri: movieDetails.posterUrl,
-        }}
-      />
-      <Text>{movieDetails.title}</Text>
-      <Text>{movieDetails.year}</Text>
-      <Text>{movieDetails.duration}</Text>
-      <Text>{movieDetails.rating}</Text>
+    <View style={globalStyles.screenContainer}>
+      <View style={localStyle.spaceBox}>
+        <MovieItemBox
+          title={movieDetails.title}
+          imageUrl={movieDetails.posterUrl}
+          year={movieDetails.year}
+          duration={movieDetails.duration}
+          rating={movieDetails.rating}
+        />
+      </View>
 
-      <Text>Cast:</Text>
-      <>
-        {movieCast.map((member, index) => (
-          <Text key={index}>{member}</Text>
-        ))}
-      </>
+      <View style={localStyle.layout}>
+        <Text style={globalStyles.templateLabel}>Cast:</Text>
+        <Text>
+          {movieCast.map((member, index) => (
+            <Text key={index} style={globalStyles.label}>
+              {index ? ", " : ""}
+              {member}
+            </Text>
+          ))}
+        </Text>
 
-      <Button
-        onPress={() => {
-          navigation.navigate("MovieComments", {
-            id: navigation.getParam("id"),
-          });
-        }}
-        title="Show comments"
-      />
+        <TouchableOpacity
+          style={[globalStyles.button, localStyle.spaceBox]}
+          onPress={() => {
+            navigation.navigate("MovieComments", {
+              id: navigation.getParam("id"),
+            });
+          }}
+        >
+          <Text style={globalStyles.buttonText}>Show comments</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
