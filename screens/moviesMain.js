@@ -10,7 +10,7 @@ export default function MoviesMain({ navigation }) {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    async function getMoviesFromRequest() {
+    async function getMoviesFromRequestAsync() {
       const response = await getMoviesAsync();
       if (response.invalidToken) {
         navigation.navigate("Login", response);
@@ -21,7 +21,7 @@ export default function MoviesMain({ navigation }) {
       }
     }
 
-    getMoviesFromRequest();
+    getMoviesFromRequestAsync();
   }, []);
 
   return (

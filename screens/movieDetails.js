@@ -10,7 +10,7 @@ export default function MovieDetails({ navigation }) {
   const [movieCast, setMovieCast] = useState([]);
 
   useEffect(() => {
-    async function getMovieDetailsFromRequest() {
+    async function getMovieDetailsFromRequestAsync() {
       const response = await getMovieDetailsAsync(navigation.getParam("id"));
       if (response.invalidToken) {
         navigation.navigate("Login", response);
@@ -22,7 +22,7 @@ export default function MovieDetails({ navigation }) {
       }
     }
 
-    getMovieDetailsFromRequest();
+    getMovieDetailsFromRequestAsync();
   }, []);
 
   return (

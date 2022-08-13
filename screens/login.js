@@ -25,14 +25,14 @@ export default function Login({ navigation }) {
   }
 
   useEffect(() => {
-    async function redirectOnValidToken() {
+    async function redirectOnValidTokenAsync() {
       const response = await getBearerTokenFromStoreAsync();
       if (response.validToken) {
         navigation.navigate("MoviesMain");
       }
     }
 
-    redirectOnValidToken();
+    redirectOnValidTokenAsync();
   }, []);
 
   useEffect(() => {

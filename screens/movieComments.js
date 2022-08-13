@@ -16,7 +16,7 @@ export default function MovieComments({ navigation }) {
   const [comments, setComments] = useState([]);
   const [message, setMessage] = useState("");
 
-  async function getMovieCommentsFromRequest() {
+  async function getMovieCommentsFromRequestAsync() {
     const response = await getCommentsAsync(navigation.getParam("id"));
     if (response.invalidToken) {
       navigation.navigate("Login", response);
@@ -29,7 +29,7 @@ export default function MovieComments({ navigation }) {
   }
 
   useEffect(() => {
-    getMovieCommentsFromRequest();
+    getMovieCommentsFromRequestAsync();
   }, []);
 
   return (
@@ -74,7 +74,7 @@ export default function MovieComments({ navigation }) {
             } else if (!response.statusOk) {
               Alert.alert("Something went wrong", response.message);
             } else {
-              await getMovieCommentsFromRequest();
+              await getMovieCommentsFromRequestAsync();
             }
           } else {
             Alert.alert(
