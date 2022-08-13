@@ -6,12 +6,12 @@ import MovieComments from "../screens/movieComments";
 import Login from "../screens/login";
 
 const screens = {
-  // Login: {
-  //   screen: Login,
-  //   navigationOptions: {
-  //     title: "Log In",
-  //   },
-  // },
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      title: "Log In",
+    },
+  },
   MoviesMain: {
     screen: MoviesMain,
     navigationOptions: {

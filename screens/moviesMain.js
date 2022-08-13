@@ -1,13 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Alert,
-  Image,
-} from "react-native";
+import { TouchableOpacity, View, Alert } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { getMoviesAsync } from "../utils/requests";
 import MovieItemBox from "../components/movieItemBox";

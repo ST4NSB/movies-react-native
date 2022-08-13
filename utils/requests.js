@@ -2,7 +2,7 @@ import * as SecureStore from "expo-secure-store";
 
 const urlAddress = "https://sarzhevsky.com/movies-api";
 
-async function getBearerTokenFromStoreAsync() {
+export async function getBearerTokenFromStoreAsync() {
   const tokenValue = await SecureStore.getItemAsync("tokenKey");
   if (!tokenValue) {
     return {

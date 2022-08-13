@@ -12,38 +12,6 @@ import { TextInput } from "react-native-gesture-handler";
 import { getCommentsAsync, submitCommentPostAsync } from "../utils/requests";
 import globalStyles from "../styles/globalStyles";
 
-const localStyle = StyleSheet.create({
-  layout: {
-    width: "100%",
-  },
-  messagesBox: {
-    width: "90%",
-    marginHorizontal: "5%",
-    backgroundColor: "#ccc",
-    borderRadius: 15,
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-  },
-  input: {
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
-    height: 90,
-    padding: 20,
-    fontWeight: "bold",
-    backgroundColor: "#ddd",
-    color: "#333",
-    borderWidth: 1,
-    borderColor: "#aaa",
-  },
-  button: {
-    width: 80,
-    position: "absolute",
-    bottom: "3%",
-    right: "3%",
-  },
-});
-
 export default function MovieComments({ navigation }) {
   const [comments, setComments] = useState([]);
   const [message, setMessage] = useState("");
@@ -121,3 +89,36 @@ export default function MovieComments({ navigation }) {
     </View>
   );
 }
+
+const localStyle = StyleSheet.create({
+  layout: {
+    width: "100%",
+    height: "100%",
+  },
+  messagesBox: {
+    width: "90%",
+    marginHorizontal: "5%",
+    backgroundColor: "#ccc",
+    borderRadius: 15,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+  },
+  input: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: 90,
+    padding: 20,
+    fontWeight: "bold",
+    backgroundColor: "#ddd",
+    color: "#333",
+    borderWidth: 1,
+    borderColor: "#bbb",
+  },
+  button: {
+    width: 80,
+    position: "absolute",
+    bottom: "3%",
+    right: "3%",
+  },
+});

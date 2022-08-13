@@ -10,20 +10,11 @@ import {
   StyleSheet,
 } from "react-native";
 import { useState, useEffect } from "react";
-import { authenticatePostAsync } from "../utils/requests";
+import {
+  authenticatePostAsync,
+  getBearerTokenFromStoreAsync,
+} from "../utils/requests";
 import globalStyles from "../styles/globalStyles";
-
-const localStyle = StyleSheet.create({
-  container: {
-    marginVertical: 10,
-  },
-  containerBttn: {
-    marginVertical: 25,
-  },
-  layout: {
-    margin: 20,
-  },
-});
 
 export default function Login({ navigation }) {
   const [userName, setuserName] = useState("");
@@ -32,6 +23,17 @@ export default function Login({ navigation }) {
   async function saveToken(value) {
     await SecureStore.setItemAsync("tokenKey", value);
   }
+
+  useEffect(() => {
+    async function redirectOnValidToken() {
+      const response = await getBearerTokenFromStoreAsync();
+      if (response.validToken) {
+        navigation.navigate("MoviesMain");
+      }
+    }
+
+    redirectOnValidToken();
+  }, []);
 
   useEffect(() => {
     if (navigation.getParam("invalidToken")) {
@@ -80,3 +82,15 @@ export default function Login({ navigation }) {
     </SafeAreaView>
   );
 }
+
+const localStyle = StyleSheet.create({
+  container: {
+    marginVertical: 10,
+  },
+  containerBttn: {
+    marginVertical: 25,
+  },
+  layout: {
+    margin: 20,
+  },
+});

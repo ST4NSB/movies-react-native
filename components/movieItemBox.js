@@ -2,33 +2,6 @@ import * as React from "react";
 import globalStyles from "../styles/globalStyles";
 import { StyleSheet, Text, View, Image } from "react-native";
 
-const localStyle = StyleSheet.create({
-  container: {
-    backgroundColor: "#ddd",
-    padding: 20,
-  },
-  layout: {
-    flexDirection: "row",
-  },
-  firstColumn: {
-    width: "27%",
-  },
-  secondColumn: {
-    width: "22%",
-  },
-  lastColumn: {
-    width: "100%",
-    flex: 1,
-  },
-  textSpace: {
-    paddingBottom: 9,
-  },
-  image: {
-    width: 75,
-    height: 110,
-  },
-});
-
 export default function MovieItemBox({
   title,
   imageUrl,
@@ -77,3 +50,30 @@ export default function MovieItemBox({
     </View>
   );
 }
+
+const localStyle = StyleSheet.create({
+  container: {
+    backgroundColor: "#ddd",
+    padding: 20,
+  },
+  layout: {
+    flexDirection: "row",
+  },
+  firstColumn: {
+    width: "27%",
+  },
+  secondColumn: {
+    width: "22%",
+  },
+  lastColumn: {
+    width: "51%",
+    flex: 1,
+  },
+  textSpace: {
+    paddingBottom: 11,
+  },
+  image: {
+    width: 75,
+    height: 113,
+  },
+});

@@ -1,26 +1,9 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Button,
-  Alert,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Alert, TouchableOpacity } from "react-native";
 import { getMovieDetailsAsync } from "../utils/requests";
 import MovieItemBox from "../components/movieItemBox";
 import globalStyles from "../styles/globalStyles";
-
-const localStyle = StyleSheet.create({
-  layout: {
-    marginHorizontal: 25,
-  },
-  spaceBox: {
-    marginVertical: 20,
-  },
-});
 
 export default function MovieDetails({ navigation }) {
   const [movieDetails, setMovieDetails] = useState({});
@@ -79,3 +62,12 @@ export default function MovieDetails({ navigation }) {
     </View>
   );
 }
+
+const localStyle = StyleSheet.create({
+  layout: {
+    marginHorizontal: 25,
+  },
+  spaceBox: {
+    marginVertical: 20,
+  },
+});
