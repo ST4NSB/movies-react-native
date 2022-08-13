@@ -20,6 +20,9 @@ const localStyle = StyleSheet.create({
   containerBttn: {
     marginVertical: 25,
   },
+  layout: {
+    margin: 20,
+  },
 });
 
 export default function Login({ navigation }) {
@@ -38,7 +41,7 @@ export default function Login({ navigation }) {
 
   return (
     <SafeAreaView style={globalStyles.screenContainer}>
-      <View style={globalStyles.layout}>
+      <View style={localStyle.layout}>
         <View style={localStyle.container}>
           <Text style={globalStyles.label}>Username:</Text>
           <TextInput

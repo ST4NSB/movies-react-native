@@ -5,11 +5,9 @@ const globalStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#eee",
   },
-  layout: {
-    margin: 20,
-  },
   label: {
     fontWeight: "bold",
+    color: "#333",
   },
   input: {
     height: 50,

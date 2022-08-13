@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { getMoviesAsync } from "../utils/requests";
+import MovieItemBox from "../components/movieItemBox";
+import globalStyles from "../styles/globalStyles";
 
 export default function MoviesMain({ navigation }) {
   const [movies, setMovies] = useState([]);
@@ -30,36 +32,26 @@ export default function MoviesMain({ navigation }) {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.screenContainer}>
       <FlatList
         data={movies}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            key={item.id}
-            onPress={() => navigation.navigate("MovieDetails", item)}
+        renderItem={({ item, index }) => (
+          <View
+            style={index === 0 ? { marginVertical: 20 } : { marginBottom: 20 }}
           >
-            <Image
-              style={{ width: 100, height: 100 }}
-              source={{
-                uri: item.posterUrl,
-              }}
+            <MovieItemBox
+              key={item.id}
+              navigation={navigation}
+              id={item.id}
+              title={item.title}
+              imageUrl={item.posterUrl}
+              year={item.year}
+              duration={item.duration}
+              rating={item.rating}
             />
-            <Text>{item.title}</Text>
-            <Text>{item.year}</Text>
-            <Text>{item.duration}</Text>
-            <Text>{item.rating}</Text>
-          </TouchableOpacity>
+          </View>
         )}
       />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

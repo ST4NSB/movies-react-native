@@ -10,7 +10,9 @@ export default function MovieComments({ navigation }) {
 
   async function getMovieCommentsFromRequest() {
     const response = await getCommentsAsync(navigation.getParam("id"));
-    if (!response.statusOk) {
+    if (response.invalidToken) {
+      navigation.navigate("Login", response);
+    } else if (!response.statusOk) {
       Alert.alert("Something went wrong", response.message);
       navigation.navigate("MovieDetails", { id: navigation.getParam("id") });
     } else {
@@ -43,7 +45,9 @@ export default function MovieComments({ navigation }) {
               navigation.getParam("id"),
               message
             );
-            if (!result.statusOk) {
+            if (response.invalidToken) {
+              navigation.navigate("Login", response);
+            } else if (!response.statusOk) {
               Alert.alert("Something went wrong", response.message);
             } else {
               await getMovieCommentsFromRequest();

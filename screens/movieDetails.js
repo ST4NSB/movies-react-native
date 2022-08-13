@@ -10,7 +10,9 @@ export default function MovieDetails({ navigation }) {
   useEffect(() => {
     async function getMovieDetailsFromRequest() {
       const response = await getMovieDetailsAsync(navigation.getParam("id"));
-      if (!response.statusOk) {
+      if (response.invalidToken) {
+        navigation.navigate("Login", response);
+      } else if (!response.statusOk) {
         Alert.alert("Something went wrong", response.message);
       } else {
         setMovieDetails(response.details);
